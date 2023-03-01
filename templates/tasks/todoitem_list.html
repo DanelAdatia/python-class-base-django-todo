@@ -1,0 +1,68 @@
+{% block content%}
+
+	{% if object_list %}
+
+		<table border="1">
+			<thead>
+				<tr>
+					<th>SrNo.</th>
+					<th>Task Title</th>
+					<th>Task Description</th>
+					<th>Task Due Date</th>
+					<th>Task Category</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for task in object_list %}
+					<tr>
+						<td>
+							{{forloop.counter}}
+						</td>
+						<td>
+							{{task.title}}
+						</td>
+						<td>
+							{{task.body}}
+						</td>
+						<td>
+							{{task.due_date}}
+						</td>
+						<td>
+							{{task.category}}
+						</td>
+						<td>
+							<button>
+								<a href="{% url 'tasks_urls:update_todo' task.id%}">Update</a>
+							</button>
+						</td>
+						<td>
+							<button>
+								<a href="{% url 'tasks_urls:delete_todo' task.id%}">Delete</a>
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	{% else %}
+		<p style="color: red;">
+			<b>
+				No Task found...
+			</b>
+		</p>
+		
+	{% endif %}
+
+	<div class="col-md-12 col-sm-12 col-lg-12">
+		<div class="col-md-4 col-sm-4 col-lg-4">
+			<button>
+				<a href="{% url 'tasks_urls:create_a_new_todo' %}">
+					Create
+				</a>
+			</button>
+		</div>
+	</div>
+{% endblock %}
